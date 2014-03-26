@@ -92,14 +92,24 @@ namespace Logitech_LCD
         public static extern bool IsButtonPressed(Button button);
 
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdUpdate", CharSet = CharSet.Unicode)]
-        public static extern bool Update();
+        public static extern void Update();
 
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdShutdown", CharSet = CharSet.Unicode)]
-        public static extern bool Shutdown();
+        public static extern void Shutdown();
 
         //Monochrome LCD Functions
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdMonoSetBackground", CharSet = CharSet.Unicode)]
+        public static extern bool MonoSetBackground(byte[] monoBitmap);
 
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdMonoSetText", CharSet = CharSet.Unicode)]
+        public static extern bool MonoSetText(int lineNumber, String text);
         //Color LCD Functions
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdColorSetBackground", CharSet = CharSet.Unicode)]
+        public static extern bool ColorSetBackground(byte[] colorBitmap);
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdColorSetTitle", CharSet = CharSet.Unicode)]
+        public static extern bool ColorSetTitle(String text, int red, int green, int blue);
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdColorSetText", CharSet = CharSet.Unicode)]
+        public static extern bool ColorSetText(int lineNumber, String text, int red, int green, int blue);
 
         #endregion
     }

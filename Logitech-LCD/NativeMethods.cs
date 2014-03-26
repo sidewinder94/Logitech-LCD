@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace Logitech_LCD
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     public enum MonoBitmap
     {
         Width = 160,
@@ -13,28 +15,14 @@ namespace Logitech_LCD
         Bpp = 1,
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum ColorBitmap
     {
         Width = 320,
         Height = 240,
         Bpp = 4,
-    }
-    public enum ReturnValue
-    {
-        ErrorSuccess = 0,
-        ErrorFileNotFound = 2,
-        ErrorAccessDenied = 5,
-        ErrorInvalidParameter = 87,
-        ErrorLockFailed = 167,
-        ErrorAlreadyExists = 183,
-        ErrorNoMoreItems = 259,
-        ErrorOldWinVersion = 1150,
-        ErrorServiceNotActive = 1062,
-        ErrorDeviceNotConnected = 1167,
-        ErrorAlreadyInitialized = 1247,
-        ErrorNoSystemResources = 1450,
-        RcpSServerUnavailable = 1722,
-        RcpXWrongPipeVersion = 1832,
     }
 
     /// <summary>
@@ -82,32 +70,91 @@ namespace Logitech_LCD
         #region Mapping methods
         //General functions
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="friendlyName"></param>
+        /// <param name="lcdType"></param>
+        /// <returns></returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdInit", CharSet = CharSet.Unicode)]
         public static extern bool Init(String friendlyName, LcdType lcdType);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lcdType"></param>
+        /// <returns></returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdIsConnected", CharSet = CharSet.Unicode)]
         public static extern bool IsConnected(LcdType lcdType);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="button"></param>
+        /// <returns></returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdIsButtonPressed", CharSet = CharSet.Unicode)]
         public static extern bool IsButtonPressed(Button button);
 
+        /// <summary>
+        /// 
+        /// </summary>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdUpdate", CharSet = CharSet.Unicode)]
         public static extern void Update();
 
+        /// <summary>
+        /// 
+        /// </summary>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdShutdown", CharSet = CharSet.Unicode)]
         public static extern void Shutdown();
 
         //Monochrome LCD Functions
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="monoBitmap"></param>
+        /// <returns></returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdMonoSetBackground", CharSet = CharSet.Unicode)]
         public static extern bool MonoSetBackground(byte[] monoBitmap);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lineNumber"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdMonoSetText", CharSet = CharSet.Unicode)]
         public static extern bool MonoSetText(int lineNumber, String text);
         //Color LCD Functions
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="colorBitmap"></param>
+        /// <returns></returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdColorSetBackground", CharSet = CharSet.Unicode)]
         public static extern bool ColorSetBackground(byte[] colorBitmap);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <returns></returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdColorSetTitle", CharSet = CharSet.Unicode)]
         public static extern bool ColorSetTitle(String text, int red, int green, int blue);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lineNumber"></param>
+        /// <param name="text"></param>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <returns></returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdColorSetText", CharSet = CharSet.Unicode)]
         public static extern bool ColorSetText(int lineNumber, String text, int red, int green, int blue);
 

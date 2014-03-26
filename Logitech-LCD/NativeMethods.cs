@@ -42,6 +42,12 @@ namespace Logitech_LCD
     /// </summary>
     public class NativeMethods
     {
+        private const String basePath = @"Lib\";
+        private const String dllName = @"Lib\x86\LogitechLcd.dll";
+        private static String dllPath = Environment.Is64BitOperatingSystem ? basePath + "x64\\" + dllName
+                                                                           : basePath + "x86\\" + dllName;
+
+
         #region Enumerations
         /// <summary>
         /// LCD Types
@@ -57,7 +63,7 @@ namespace Logitech_LCD
         /// Screen buttons
         /// </summary>
         [Flags]
-        public enum Buttons
+        public enum Button
         {
             MonoButton0 = 0x1,
             ManoButton1 = 0x2,
@@ -74,11 +80,14 @@ namespace Logitech_LCD
         #endregion
 
         #region Mapping methods
-        [DllImport("LogitechLcd.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdInit")]
-        public static extern int Init(String friendlyName, LcdType lcdType);
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdInit", CharSet = CharSet.Unicode)]
+        public static extern bool Init(String friendlyName, LcdType lcdType);
 
-        [DllImport("LogitechLcd.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdIsConnected")]
-        public static extern int IsConnected(LcdType lcdType);
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdIsConnected", CharSet = CharSet.Unicode)]
+        public static extern bool IsConnected(LcdType lcdType);
+
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdIsButtonPressed", CharSet = CharSet.Unicode)]
+        public static extern bool IsButtonPressed(Button button);
         #endregion
     }
 }

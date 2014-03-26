@@ -80,6 +80,8 @@ namespace Logitech_LCD
         #endregion
 
         #region Mapping methods
+        //General functions
+
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdInit", CharSet = CharSet.Unicode)]
         public static extern bool Init(String friendlyName, LcdType lcdType);
 
@@ -88,6 +90,17 @@ namespace Logitech_LCD
 
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdIsButtonPressed", CharSet = CharSet.Unicode)]
         public static extern bool IsButtonPressed(Button button);
+
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdUpdate", CharSet = CharSet.Unicode)]
+        public static extern bool Update();
+
+        [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdShutdown", CharSet = CharSet.Unicode)]
+        public static extern bool Shutdown();
+
+        //Monochrome LCD Functions
+
+        //Color LCD Functions
+
         #endregion
     }
 }

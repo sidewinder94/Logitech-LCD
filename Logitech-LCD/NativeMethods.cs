@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Logitech_LCD
 {
@@ -70,6 +71,14 @@ namespace Logitech_LCD
             ColorDown = 0x2000,
             ColorMenu = 0x4000,
         }
+        #endregion
+
+        #region Mapping methods
+        [DllImport("LogitechLcd.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdInit")]
+        public static extern int Init(String friendlyName, LcdType lcdType);
+
+        [DllImport("LogitechLcd.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdIsConnected")]
+        public static extern int IsConnected(LcdType lcdType);
         #endregion
     }
 }

@@ -57,6 +57,7 @@ namespace Logitech_LCD
     #endregion
 
 
+
     /// <summary>
     /// Class containing necessary informations and calls to the Logitech SDK
     /// </summary>
@@ -65,6 +66,24 @@ namespace Logitech_LCD
         private const String basePath = @"Lib\";
         private const String dllName86 = @"Lib\x86\LogitechLcd.dll";
         private const String dllName64 = @"Lib\x64\LogitechLcd.dll";
+
+        #region Strictures
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>Class-type because the marshaller chokes on big structs<br/>
+        /// Author : zzattack from project : <see cref="https://github.com/zzattack/Logitech-LCD"/></remarks>
+        [StructLayout(LayoutKind.Sequential, Pack = 8)]
+        public class Bitmap
+        {
+            // SizeConst is the biggest possible bitmap size,
+            // without it the marshaller fails causing exceptions.
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 307200)]
+            public byte[] Pixels;
+        }
+
+        #endregion
 
         #region Mapping methods
         //General functions

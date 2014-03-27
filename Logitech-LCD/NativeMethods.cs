@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Logitech_LCD
 {
     /// <summary>
-    /// 
+    /// The screen infromations about Monochrome display
     /// </summary>
     public enum MonoBitmap
     {
@@ -16,7 +16,7 @@ namespace Logitech_LCD
     }
 
     /// <summary>
-    /// 
+    /// The screen informations about Color display
     /// </summary>
     public enum ColorBitmap
     {
@@ -71,38 +71,39 @@ namespace Logitech_LCD
         //General functions
 
         /// <summary>
-        /// 
+        /// Allows the initialization of the SDK, MUST be called before any other function
         /// </summary>
-        /// <param name="friendlyName"></param>
-        /// <param name="lcdType"></param>
-        /// <returns></returns>
+        /// <param name="friendlyName">The name of the applet, cannot be changed after</param>
+        /// <param name="lcdType">The lcdType to initialize</param>
+        /// <returns>True if success, False if failed</returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdInit", CharSet = CharSet.Unicode)]
         public static extern bool Init(String friendlyName, LcdType lcdType);
 
         /// <summary>
-        /// 
+        /// Check if a screen is connected, the <see cref="Init"/> function have to be called before, or it could return
+        /// unexpected results
         /// </summary>
-        /// <param name="lcdType"></param>
-        /// <returns></returns>
+        /// <param name="lcdType">The lcd type to check</param>
+        /// <returns>True if connected, False if not</returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdIsConnected", CharSet = CharSet.Unicode)]
         public static extern bool IsConnected(LcdType lcdType);
 
         /// <summary>
-        /// 
+        /// Check if a button is pressed
         /// </summary>
-        /// <param name="button"></param>
+        /// <param name="button">The button to check</param>
         /// <returns></returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdIsButtonPressed", CharSet = CharSet.Unicode)]
         public static extern bool IsButtonPressed(Button button);
 
         /// <summary>
-        /// 
+        /// Refresh the screen
         /// </summary>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdUpdate", CharSet = CharSet.Unicode)]
         public static extern void Update();
 
         /// <summary>
-        /// 
+        /// Shutdown the SDK, closes the applet and frees the memory
         /// </summary>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdShutdown", CharSet = CharSet.Unicode)]
         public static extern void Shutdown();
@@ -110,51 +111,51 @@ namespace Logitech_LCD
         //Monochrome LCD Functions
 
         /// <summary>
-        /// 
+        /// Displays a bitmap on a Monochrome screen
         /// </summary>
-        /// <param name="monoBitmap"></param>
+        /// <param name="monoBitmap">The array of bytes to display, a byte will be displayed if it's value is > 128 <see cref="MonoBitmap"/></param>
         /// <returns></returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdMonoSetBackground", CharSet = CharSet.Unicode)]
         public static extern bool MonoSetBackground(byte[] monoBitmap);
 
         /// <summary>
-        /// 
+        /// Displays text on a monochrome screen
         /// </summary>
-        /// <param name="lineNumber"></param>
-        /// <param name="text"></param>
-        /// <returns></returns>
+        /// <param name="lineNumber">The line number [0-3]</param>
+        /// <param name="text">The text to display</param>
+        /// <returns>True if succeeds false otherwise</returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdMonoSetText", CharSet = CharSet.Unicode)]
         public static extern bool MonoSetText(int lineNumber, String text);
         //Color LCD Functions
 
         /// <summary>
-        /// 
+        /// Displays a bitmap on a clor screen
         /// </summary>
-        /// <param name="colorBitmap"></param>
-        /// <returns></returns>
+        /// <param name="colorBitmap">The array of bytes to be displayed <see cref="ColorBitmap"/></param>
+        /// <returns>True if succeeds false otherwise</returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdColorSetBackground", CharSet = CharSet.Unicode)]
         public static extern bool ColorSetBackground(byte[] colorBitmap);
 
         /// <summary>
-        /// 
+        /// Displays a line of text as a title on a color screen
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="red"></param>
-        /// <param name="green"></param>
-        /// <param name="blue"></param>
-        /// <returns></returns>
+        /// <param name="text">The text to display</param>
+        /// <param name="red">Red component of the title's color</param>
+        /// <param name="green">Green component of the title's color</param>
+        /// <param name="blue">Blue component of the title's color</param>
+        /// <returns>True if succeeds false otherwise</returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdColorSetTitle", CharSet = CharSet.Unicode)]
         public static extern bool ColorSetTitle(String text, int red, int green, int blue);
 
         /// <summary>
-        /// 
+        /// Displays a line of text on a color screen
         /// </summary>
-        /// <param name="lineNumber"></param>
-        /// <param name="text"></param>
-        /// <param name="red"></param>
-        /// <param name="green"></param>
-        /// <param name="blue"></param>
-        /// <returns></returns>
+        /// <param name="lineNumber">The line number [0-7]</param>
+        /// <param name="text">The text to display</param>
+        /// <param name="red">Red component of the text color</param>
+        /// <param name="green">Green component of the text color</param>
+        /// <param name="blue">Blue component of the text color</param>
+        /// <returns>True if succeeds false otherwise</returns>
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdColorSetText", CharSet = CharSet.Unicode)]
         public static extern bool ColorSetText(int lineNumber, String text, int red, int green, int blue);
 

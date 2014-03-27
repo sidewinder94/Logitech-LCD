@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logitech_LCD.Exceptions
 {
+    [Serializable]
     public class LcdNotInitializedException : Exception
     {
         public LcdNotInitializedException() :

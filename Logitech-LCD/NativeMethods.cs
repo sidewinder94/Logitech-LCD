@@ -91,7 +91,7 @@ namespace Logitech_LCD
         /// Check if a button is pressed
         /// </summary>
         /// <param name="button">The button to check</param>
-        /// <returns></returns>
+        /// <returns>True if specified button pressed, false otherwise</returns>
         [DllImport(dllName86, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdIsButtonPressed", CharSet = CharSet.Unicode)]
         public static extern bool IsButtonPressed(Button button);
 
@@ -113,7 +113,7 @@ namespace Logitech_LCD
         /// Displays a bitmap on a Monochrome screen
         /// </summary>
         /// <param name="monoBitmap">The array of bytes to display, a byte will be displayed if it's value is > 128 <see cref="MonoBitmap"/></param>
-        /// <returns></returns>
+        /// <returns>True if succeeds false otherwise</returns>
         [DllImport(dllName86, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdMonoSetBackground", CharSet = CharSet.Unicode)]
         public static extern bool MonoSetBackground(byte[] monoBitmap);
 
@@ -128,7 +128,7 @@ namespace Logitech_LCD
         //Color LCD Functions
 
         /// <summary>
-        /// Displays a bitmap on a clor screen
+        /// Displays a bitmap on a color screen
         /// </summary>
         /// <param name="colorBitmap">The array of bytes to be displayed <see cref="ColorBitmap"/></param>
         /// <returns>True if succeeds false otherwise</returns>

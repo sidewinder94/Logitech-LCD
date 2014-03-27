@@ -74,32 +74,63 @@ namespace Logitech_LCD
             }
         }
 
+        /// <summary>
+        /// Allows the initialization of the SDK, MUST be called before any other function
+        /// </summary>
+        /// <param name="friendlyName">The name of the applet, cannot be changed after</param>
+        /// <param name="lcdType">The lcdType to initialize</param>
+        /// <returns>True if success, False if failed</returns>
         public bool init(String friendlyName, LcdType lcdType)
         {
             isInit = NativeMethods.Init(friendlyName, lcdType);
             return isInit;
         }
 
+        /// <summary>
+        /// Check if a screen is connected, the <see cref="Init"/> function have to be called before, or it could return
+        /// unexpected results
+        /// </summary>
+        /// <param name="lcdType">The lcd type to check</param>
+        /// <returns>True if connected, false otherwise</returns>
         public bool isConnected(LcdType lcdType)
         {
             return (bool)InvokeMethod(new Func<LcdType, bool>(NativeMethods.IsConnected), lcdType);
         }
 
+        /// <summary>
+        /// Check if a button is pressed
+        /// </summary>
+        /// <param name="button">The button to check</param>
+        /// <returns>True if specified button pressed, false otherwise</returns>
         public bool isButtonPressed(Button button)
         {
             return (bool)InvokeMethod(new Func<Button, bool>(NativeMethods.IsButtonPressed), button);
         }
 
+        /// <summary>
+        /// Refresh the screen
+        /// </summary>
         public void update()
         {
             InvokeMethod(new Action(NativeMethods.Update));
         }
 
+        /// <summary>
+        /// Displays a bitmap on a Monochrome screen
+        /// </summary>
+        /// <param name="monoBitmap">The array of bytes to display, a byte will be displayed if it's value is > 128 <see cref="MonoBitmap"/></param>
+        /// <returns>True if succeeds false otherwise</returns>
         public bool monoSetBackground(byte[] monoBitmap)
         {
             return (bool)InvokeMethod(new Func<byte[], bool>(NativeMethods.MonoSetBackground), monoBitmap);
         }
 
+        /// <summary>
+        /// Displays text on a monochrome screen
+        /// </summary>
+        /// <param name="lineNumber">The line number [0-3]</param>
+        /// <param name="text">The text to display</param>
+        /// <returns>True if succeeds false otherwise</returns>
         public bool monoSetText(int lineNumber, String text)
         {
             if ((lineNumber < 0) || (lineNumber > 3))
@@ -110,17 +141,39 @@ namespace Logitech_LCD
             return (bool)InvokeMethod(new Func<int, String, bool>(NativeMethods.MonoSetText), lineNumber, text);
         }
 
+        /// <summary>
+        /// Displays a bitmap on a color screen
+        /// </summary>
+        /// <param name="colorBitmap">The array of bytes to be displayed <see cref="ColorBitmap"/></param>
+        /// <returns>True if succeeds false otherwise</returns>
         public bool colorSetBackground(byte[] colorBitmap)
         {
             return (bool)InvokeMethod(new Func<byte[], bool>(NativeMethods.ColorSetBackground), colorBitmap);
         }
 
+        /// <summary>
+        /// Displays a line of text as a title on a color screen
+        /// </summary>
+        /// <param name="text">The text to display</param>
+        /// <param name="red">Red component of the title's color</param>
+        /// <param name="green">Green component of the title's color</param>
+        /// <param name="blue">Blue component of the title's color</param>
+        /// <returns>True if succeeds false otherwise</returns>
         public bool colorSetTitle(String text, int red, int green, int blue)
         {
             return (bool)InvokeMethod(new Func<String, int, int, int, bool>(NativeMethods.ColorSetTitle),
                 text, red, green, blue);
         }
 
+        /// <summary>
+        /// Displays a line of text on a color screen
+        /// </summary>
+        /// <param name="lineNumber">The line number [0-7]</param>
+        /// <param name="text">The text to display</param>
+        /// <param name="red">Red component of the text color</param>
+        /// <param name="green">Green component of the text color</param>
+        /// <param name="blue">Blue component of the text color</param>
+        /// <returns>True if succeeds false otherwise</returns>
         public bool colorSetText(int lineNumber, String text, int red, int green, int blue)
         {
             if ((lineNumber < 0) || (lineNumber > 7))

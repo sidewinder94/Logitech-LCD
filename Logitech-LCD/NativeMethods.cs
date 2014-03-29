@@ -21,10 +21,10 @@ namespace Logitech_LCD
     /// Screen buttons
     /// </summary>
     [Flags]
-    public enum Button
+    public enum Buttons
     {
         MonoButton0 = 0x1,
-        ManoButton1 = 0x2,
+        MonoButton1 = 0x2,
         MonoButton2 = 0x4,
         MonoButton3 = 0x8,
         ColorLeft = 0x100,
@@ -112,7 +112,7 @@ namespace Logitech_LCD
         /// <param name="button">The button to check</param>
         /// <returns>True if specified button pressed, false otherwise</returns>
         [DllImport(dllName86, CallingConvention = CallingConvention.Cdecl, EntryPoint = "LogiLcdIsButtonPressed", CharSet = CharSet.Unicode)]
-        public static extern bool IsButtonPressed(Button button);
+        public static extern bool IsButtonPressed(Buttons button);
 
         /// <summary>
         /// Refresh the screen

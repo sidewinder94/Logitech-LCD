@@ -102,9 +102,9 @@ namespace Logitech_LCD
         /// </summary>
         /// <param name="button">The button to check</param>
         /// <returns>True if specified button pressed, false otherwise</returns>
-        public bool isButtonPressed(Button button)
+        public bool isButtonPressed(Buttons button)
         {
-            return (bool)InvokeMethod(new Func<Button, bool>(NativeMethods.IsButtonPressed), button);
+            return (bool)InvokeMethod(new Func<Buttons, bool>(NativeMethods.IsButtonPressed), button);
         }
 
         /// <summary>

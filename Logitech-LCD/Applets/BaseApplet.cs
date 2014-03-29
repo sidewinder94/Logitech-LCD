@@ -21,7 +21,24 @@ namespace Logitech_LCD.Applets
 
         public event EventHandler dataUpdate;
 
+        //Color LCD button events
+        public event EventHandler LcdColorLeftButtonPressed;
+        public event EventHandler LcdColorRightButtonPressed;
+        public event EventHandler LcdColorUpButtonPressed;
+        public event EventHandler LcdColorDownButtonPressed;
+        public event EventHandler LcdColorOkButtonPressed;
+        public event EventHandler LcdColorCancelButtonPressed;
+        public event EventHandler LcdColorMenuButtonPressed;
+
+        //Mono LCD Button Events
+        public event EventHandler LcdMonoButton0Pressed;
+        public event EventHandler LcdMonoButton1Pressed;
+        public event EventHandler LcdMonoButton2Pressed;
+        public event EventHandler LcdMonoButton3Pressed;
+
+        //Timers
         private Timer _updatetTimer;
+        private Timer _buttonCheckTimer;
 
         private static LcdType? detectLcdType()
         {
@@ -68,6 +85,10 @@ namespace Logitech_LCD.Applets
                 _updatetTimer.Interval = 100 / 6;
                 _updatetTimer.Tick += updateGraphics;
 
+                _buttonCheckTimer = new Timer();
+                _buttonCheckTimer.Interval = 200;
+                _buttonCheckTimer.Tick += checkButtons;
+
                 if (lcdType == LcdType.Color)
                 {
                     _height = (int)ColorBitmap.Height;
@@ -86,6 +107,55 @@ namespace Logitech_LCD.Applets
                 }
                 dataUpdate += OnDataUpdate;
                 _updatetTimer.Start();
+                _buttonCheckTimer.Start();
+            }
+        }
+
+        private void checkButtons(object sender, EventArgs e)
+        {
+            if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorLeft))
+            {
+                LcdColorLeftButtonPressed(this, EventArgs.Empty);
+            }
+            else if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorRight))
+            {
+                LcdColorRightButtonPressed(this, EventArgs.Empty);
+            }
+            else if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorUp))
+            {
+                LcdColorUpButtonPressed(this, EventArgs.Empty);
+            }
+            else if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorDown))
+            {
+                LcdColorDownButtonPressed(this, EventArgs.Empty);
+            }
+            else if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorOK))
+            {
+                LcdColorOkButtonPressed(this, EventArgs.Empty);
+            }
+            else if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorCancel))
+            {
+                LcdColorCancelButtonPressed(this, EventArgs.Empty);
+            }
+            else if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorMenu))
+            {
+                LcdColorMenuButtonPressed(this, EventArgs.Empty);
+            }
+            else if (LogitechLcd.Instance.isButtonPressed(Buttons.MonoButton0))
+            {
+                LcdMonoButton0Pressed(this, EventArgs.Empty);
+            }
+            else if (LogitechLcd.Instance.isButtonPressed(Buttons.MonoButton1))
+            {
+                LcdMonoButton1Pressed(this, EventArgs.Empty);
+            }
+            else if (LogitechLcd.Instance.isButtonPressed(Buttons.MonoButton2))
+            {
+                LcdMonoButton2Pressed(this, EventArgs.Empty);
+            }
+            else if (LogitechLcd.Instance.isButtonPressed(Buttons.MonoButton3))
+            {
+                LcdMonoButton3Pressed(this, EventArgs.Empty);
             }
         }
 

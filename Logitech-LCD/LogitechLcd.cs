@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Logitech_LCD.Exceptions;
+﻿using Logitech_LCD.Exceptions;
+using System;
 
 namespace Logitech_LCD
 {

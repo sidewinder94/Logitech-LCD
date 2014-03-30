@@ -162,19 +162,12 @@ namespace Logitech_LCD.Applets
         private void updateGraphics(object sender, EventArgs e)
         {
             this.dataUpdate(this, EventArgs.Empty);
-            PixelFormat format;
-            if (_bpp == ((int)MonoBitmap.Bpp))
-            {
-                format = PixelFormat.Format1bppIndexed;
-            }
-            else
-            {
-                format = PixelFormat.Format32bppArgb;
-            }
+            PixelFormat format = format = PixelFormat.Format32bppArgb;
+
             Bitmap _bm = new Bitmap(_width, _height, format);
             this.DrawToBitmap(_bm, new Rectangle(0, 0, _width, _height));
 
-            byte[] pixels = new byte[_width * _height * _bpp];
+            byte[] pixels = new byte[_width * _height * 4];
 
             BitmapData bitmapData = _bm.LockBits(
                 new Rectangle(0, 0, _width, _height),
@@ -194,6 +187,18 @@ namespace Logitech_LCD.Applets
                 LogitechLcd.Instance.monoSetBackground(pixels);
             }
             LogitechLcd.Instance.update();
+        }
+
+        private byte[] convertToMonochrome(byte[] bitmap)
+        {
+            byte[] monochromePixels = new byte[bitmap.Length];
+
+            for (int ii = 0; ii < (((int)(MonoBitmap.Height)) * ((int)MonoBitmap.Width) * 4); ii = ii + 4)
+            {
+                monochromePixels[ii] = bitmap[ii / 4];
+            }
+
+            return monochromePixels;
         }
 
         protected virtual void OnDataUpdate(object sender, EventArgs e)

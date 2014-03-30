@@ -179,7 +179,7 @@ namespace Logitech_LCD.Applets
             }
             else
             {
-                LogitechLcd.Instance.monoSetBackground(pixels);
+                LogitechLcd.Instance.monoSetBackground(convertToMonochrome(pixels));
             }
             LogitechLcd.Instance.update();
         }

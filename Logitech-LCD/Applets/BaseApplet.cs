@@ -110,47 +110,80 @@ namespace Logitech_LCD.Applets
         {
             if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorLeft))
             {
-                LcdColorLeftButtonPressed(this, EventArgs.Empty);
+                if (LcdColorLeftButtonPressed != null)
+                {
+                    LcdColorLeftButtonPressed(this, EventArgs.Empty);
+                }
             }
             else if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorRight))
             {
-                LcdColorRightButtonPressed(this, EventArgs.Empty);
+                if (LcdColorRightButtonPressed != null)
+                {
+                    LcdColorRightButtonPressed(this, EventArgs.Empty);
+                }
             }
             else if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorUp))
             {
-                LcdColorUpButtonPressed(this, EventArgs.Empty);
+                if (LcdColorUpButtonPressed != null)
+                {
+                    LcdColorUpButtonPressed(this, EventArgs.Empty);
+                }
             }
             else if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorDown))
             {
-                LcdColorDownButtonPressed(this, EventArgs.Empty);
+                if (LcdColorDownButtonPressed != null)
+                {
+                    LcdColorDownButtonPressed(this, EventArgs.Empty);
+                }
             }
             else if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorOK))
             {
-                LcdColorOkButtonPressed(this, EventArgs.Empty);
+                if (LcdColorOkButtonPressed != null)
+                {
+                    LcdColorOkButtonPressed(this, EventArgs.Empty);
+                }
             }
             else if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorCancel))
             {
-                LcdColorCancelButtonPressed(this, EventArgs.Empty);
+                if (LcdColorCancelButtonPressed != null)
+                {
+                    LcdColorCancelButtonPressed(this, EventArgs.Empty);
+                }
             }
             else if (LogitechLcd.Instance.isButtonPressed(Buttons.ColorMenu))
             {
-                LcdColorMenuButtonPressed(this, EventArgs.Empty);
+                if (LcdColorMenuButtonPressed != null)
+                {
+                    LcdColorMenuButtonPressed(this, EventArgs.Empty);
+                }
             }
             else if (LogitechLcd.Instance.isButtonPressed(Buttons.MonoButton0))
             {
-                LcdMonoButton0Pressed(this, EventArgs.Empty);
+                if (LcdMonoButton0Pressed != null)
+                {
+                    LcdMonoButton0Pressed(this, EventArgs.Empty);
+                }
             }
             else if (LogitechLcd.Instance.isButtonPressed(Buttons.MonoButton1))
             {
-                LcdMonoButton1Pressed(this, EventArgs.Empty);
+                if (LcdMonoButton1Pressed != null)
+                {
+                    LcdMonoButton1Pressed(this, EventArgs.Empty);
+                }
             }
             else if (LogitechLcd.Instance.isButtonPressed(Buttons.MonoButton2))
             {
-                LcdMonoButton2Pressed(this, EventArgs.Empty);
+                if (LcdMonoButton2Pressed != null)
+                {
+                    LcdMonoButton2Pressed(this, EventArgs.Empty);
+                }
             }
             else if (LogitechLcd.Instance.isButtonPressed(Buttons.MonoButton3))
             {
-                LcdMonoButton3Pressed(this, EventArgs.Empty);
+                if (LcdMonoButton3Pressed != null)
+                {
+                    LcdMonoButton3Pressed(this, EventArgs.Empty);
+                }
             }
         }
 

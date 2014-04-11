@@ -90,7 +90,14 @@ namespace Logitech_LCD
         /// <returns>True if connected, false otherwise</returns>
         public bool isConnected(LcdType lcdType)
         {
-            return (bool)InvokeMethod(new Func<LcdType, bool>(NativeMethods.IsConnected), lcdType);
+            try
+            {
+                return (bool)InvokeMethod(new Func<LcdType, bool>(NativeMethods.IsConnected), lcdType);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>

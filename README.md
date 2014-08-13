@@ -18,5 +18,5 @@ You will then have to override the OnDataUpdate method and you're ready to desig
 
 Known Issues
 ============
-If you are in Release build configuration or the first build of the lib wasn't ran yet, the designer won't be able to initialize.
+If you are in Release build configuration or the first build of the lib wasn't done yet, the designer won't be able to initialize.
 When disiging the your control, be sure to be in Debug build configuration, run a build of the lib, close the designer window and reopen it.

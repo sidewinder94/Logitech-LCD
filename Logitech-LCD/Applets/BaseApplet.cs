@@ -219,11 +219,11 @@ namespace Logitech_LCD.Applets
 
         private byte[] convertToMonochrome(byte[] bitmap)
         {
-            byte[] monochromePixels = new byte[bitmap.Length];
+            byte[] monochromePixels = new byte[bitmap.Length / 4];
 
-            for (int ii = 0; ii < (((int)(MonoBitmap.Height)) * ((int)MonoBitmap.Width) * 4); ii = ii + 4)
+            for (int ii = 0; ii < (int)(MonoBitmap.Height) * (int)MonoBitmap.Width; ii++)
             {
-                monochromePixels[ii] = bitmap[ii / 4];
+                monochromePixels[ii] = bitmap[ii * 4];
             }
 
             return monochromePixels;

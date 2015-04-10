@@ -46,7 +46,7 @@ namespace Logitech_LCD
         /// <returns>The function returns, needs to be casted</returns>
         private object InvokeMethod(Delegate method, params object[] args)
         {
-            if (isInit)
+            if (IsInit)
             {
                 return method.DynamicInvoke(args);
             }
@@ -58,7 +58,7 @@ namespace Logitech_LCD
 
         private bool _init;
 
-        public bool isInit
+        public bool IsInit
         {
             get
             {
@@ -76,10 +76,10 @@ namespace Logitech_LCD
         /// <param name="friendlyName">The name of the applet, cannot be changed after</param>
         /// <param name="lcdType">The lcdType to initialize</param>
         /// <returns>True if success, False if failed</returns>
-        public bool init(String friendlyName, LcdType lcdType)
+        public bool Init(String friendlyName, LcdType lcdType)
         {
-            isInit = NativeMethods.Init(friendlyName, lcdType);
-            return isInit;
+            IsInit = NativeMethods.Init(friendlyName, lcdType);
+            return IsInit;
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Logitech_LCD
         /// </summary>
         /// <param name="lcdType">The lcd type to check</param>
         /// <returns>True if connected, false otherwise</returns>
-        public bool isConnected(LcdType lcdType)
+        public bool IsConnected(LcdType lcdType)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace Logitech_LCD
         /// </summary>
         /// <param name="button">The button to check</param>
         /// <returns>True if specified button pressed, false otherwise</returns>
-        public bool isButtonPressed(Buttons button)
+        public bool IsButtonPressed(Buttons button)
         {
             return (bool)InvokeMethod(new Func<Buttons, bool>(NativeMethods.IsButtonPressed), button);
         }
@@ -113,7 +113,7 @@ namespace Logitech_LCD
         /// <summary>
         /// Refresh the screen
         /// </summary>
-        public void update()
+        public void Update()
         {
             InvokeMethod(new Action(NativeMethods.Update));
         }
@@ -123,7 +123,7 @@ namespace Logitech_LCD
         /// </summary>
         /// <param name="monoBitmap">The array of bytes to display, a byte will be displayed if it's value is > 128 <see cref="MonoBitmap"/></param>
         /// <returns>True if succeeds false otherwise</returns>
-        public bool monoSetBackground(byte[] monoBitmap)
+        public bool MonoSetBackground(byte[] monoBitmap)
         {
             return (bool)InvokeMethod(new Func<byte[], bool>(NativeMethods.MonoSetBackground), monoBitmap);
         }
@@ -134,7 +134,7 @@ namespace Logitech_LCD
         /// <param name="lineNumber">The line number [0-3]</param>
         /// <param name="text">The text to display</param>
         /// <returns>True if succeeds false otherwise</returns>
-        public bool monoSetText(int lineNumber, String text)
+        public bool MonoSetText(int lineNumber, String text)
         {
             if ((lineNumber < 0) || (lineNumber > 3))
             {
@@ -149,7 +149,7 @@ namespace Logitech_LCD
         /// </summary>
         /// <param name="colorBitmap">The array of bytes to be displayed <see cref="ColorBitmap"/></param>
         /// <returns>True if succeeds false otherwise</returns>
-        public bool colorSetBackground(byte[] colorBitmap)
+        public bool ColorSetBackground(byte[] colorBitmap)
         {
             return (bool)InvokeMethod(new Func<byte[], bool>(NativeMethods.ColorSetBackground), colorBitmap);
         }
@@ -162,7 +162,7 @@ namespace Logitech_LCD
         /// <param name="green">Green component of the title's color</param>
         /// <param name="blue">Blue component of the title's color</param>
         /// <returns>True if succeeds false otherwise</returns>
-        public bool colorSetTitle(String text, int red, int green, int blue)
+        public bool ColorSetTitle(String text, int red, int green, int blue)
         {
             return (bool)InvokeMethod(new Func<String, int, int, int, bool>(NativeMethods.ColorSetTitle),
                 text, red, green, blue);
@@ -177,7 +177,7 @@ namespace Logitech_LCD
         /// <param name="green">Green component of the text color</param>
         /// <param name="blue">Blue component of the text color</param>
         /// <returns>True if succeeds false otherwise</returns>
-        public bool colorSetText(int lineNumber, String text, int red, int green, int blue)
+        public bool ColorSetText(int lineNumber, String text, int red, int green, int blue)
         {
             if ((lineNumber < 0) || (lineNumber > 7))
             {

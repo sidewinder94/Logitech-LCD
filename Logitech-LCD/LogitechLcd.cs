@@ -88,6 +88,7 @@ namespace Logitech_LCD
         /// </summary>
         /// <param name="lcdType">The lcd type to check</param>
         /// <returns>True if connected, false otherwise</returns>
+        /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public bool IsConnected(LcdType lcdType)
         {
             try
@@ -105,6 +106,7 @@ namespace Logitech_LCD
         /// </summary>
         /// <param name="button">The button to check</param>
         /// <returns>True if specified button pressed, false otherwise</returns>
+        /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public bool IsButtonPressed(Buttons button)
         {
             return (bool)InvokeMethod(new Func<Buttons, bool>(NativeMethods.IsButtonPressed), button);
@@ -113,6 +115,7 @@ namespace Logitech_LCD
         /// <summary>
         /// Refresh the screen
         /// </summary>
+        /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public void Update()
         {
             InvokeMethod(new Action(NativeMethods.Update));
@@ -123,6 +126,7 @@ namespace Logitech_LCD
         /// </summary>
         /// <param name="monoBitmap">The array of bytes to display, a byte will be displayed if it's value is > 128 <see cref="MonoBitmap"/></param>
         /// <returns>True if succeeds false otherwise</returns>
+        /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public bool MonoSetBackground(byte[] monoBitmap)
         {
             return (bool)InvokeMethod(new Func<byte[], bool>(NativeMethods.MonoSetBackground), monoBitmap);
@@ -134,6 +138,7 @@ namespace Logitech_LCD
         /// <param name="lineNumber">The line number [0-3]</param>
         /// <param name="text">The text to display</param>
         /// <returns>True if succeeds false otherwise</returns>
+        /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public bool MonoSetText(int lineNumber, String text)
         {
             if ((lineNumber < 0) || (lineNumber > 3))
@@ -149,6 +154,7 @@ namespace Logitech_LCD
         /// </summary>
         /// <param name="colorBitmap">The array of bytes to be displayed <see cref="ColorBitmap"/></param>
         /// <returns>True if succeeds false otherwise</returns>
+        /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public bool ColorSetBackground(byte[] colorBitmap)
         {
             return (bool)InvokeMethod(new Func<byte[], bool>(NativeMethods.ColorSetBackground), colorBitmap);
@@ -162,6 +168,7 @@ namespace Logitech_LCD
         /// <param name="green">Green component of the title's color</param>
         /// <param name="blue">Blue component of the title's color</param>
         /// <returns>True if succeeds false otherwise</returns>
+        /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public bool ColorSetTitle(String text, int red, int green, int blue)
         {
             return (bool)InvokeMethod(new Func<String, int, int, int, bool>(NativeMethods.ColorSetTitle),
@@ -177,6 +184,7 @@ namespace Logitech_LCD
         /// <param name="green">Green component of the text color</param>
         /// <param name="blue">Blue component of the text color</param>
         /// <returns>True if succeeds false otherwise</returns>
+        /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public bool ColorSetText(int lineNumber, String text, int red, int green, int blue)
         {
             if ((lineNumber < 0) || (lineNumber > 7))

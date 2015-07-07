@@ -15,10 +15,6 @@ namespace Logitech_LCD
             {
                 return Nested.instance;
             }
-            private set
-            {
-                Instance = value;
-            }
         }
 
         private class Nested
@@ -56,19 +52,7 @@ namespace Logitech_LCD
             }
         }
 
-        private bool _init;
-
-        public bool IsInit
-        {
-            get
-            {
-                return this._init;
-            }
-            private set
-            {
-                this._init = value;
-            }
-        }
+        public bool IsInit { get; private set; }
 
         /// <summary>
         /// Allows the initialization of the SDK, MUST be called before any other function

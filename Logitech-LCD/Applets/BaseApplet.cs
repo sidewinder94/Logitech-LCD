@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Logitech_LCD.Utils;
 
 namespace Logitech_LCD.Applets
 {
@@ -34,37 +35,10 @@ namespace Logitech_LCD.Applets
         private Timer _updatetTimer;
         private Timer _buttonCheckTimer;
 
-        private static LcdType? DetectLcdType()
-        {
-            try
-            {
-                if (LogitechLcd.Instance.IsConnected(LcdType.Color))
-                {
-                    return LcdType.Color;
-                }
-                else if (LogitechLcd.Instance.IsConnected(LcdType.Mono))
-                {
-                    return LcdType.Mono;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (LcdNotInitializedException)
-            {
-#if !DEBUG
-                //Emergency initialization
-                LogitechLcd.Instance.Init("", LcdType.Color | LcdType.Mono);
-                return DetectLcdType();
-#else
-                return null;
-#endif
-            }
-        }
+
 
         public BaseApplet()
-            : this(DetectLcdType())
+            : this(StaticMethods.DetectLcdType())
         {
 
         }
@@ -185,7 +159,7 @@ namespace Logitech_LCD.Applets
         private void UpdateGraphics(object sender, EventArgs e)
         {
             this.DataUpdate(this, EventArgs.Empty);
-            PixelFormat format = format = PixelFormat.Format32bppArgb;
+            PixelFormat format = PixelFormat.Format32bppArgb;
 
             Bitmap bm = new Bitmap(_width, _height, format);
             this.DrawToBitmap(bm, new Rectangle(0, 0, _width, _height));
@@ -207,22 +181,11 @@ namespace Logitech_LCD.Applets
             }
             else
             {
-                LogitechLcd.Instance.MonoSetBackground(ConvertToMonochrome(pixels));
+                LogitechLcd.Instance.MonoSetBackground(StaticMethods.ConvertToMonochrome(pixels));
             }
             LogitechLcd.Instance.Update();
         }
 
-        private byte[] ConvertToMonochrome(byte[] bitmap)
-        {
-            byte[] monochromePixels = new byte[bitmap.Length / 4];
-
-            for (int ii = 0; ii < (int)(MonoBitmap.Height) * (int)MonoBitmap.Width; ii++)
-            {
-                monochromePixels[ii] = bitmap[ii * 4];
-            }
-
-            return monochromePixels;
-        }
 
         protected virtual void OnDataUpdate(object sender, EventArgs e)
         {

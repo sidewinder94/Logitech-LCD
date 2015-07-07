@@ -31,7 +31,7 @@ namespace Logitech_LCD.Applets
 
 
 
-        public event EventHandler DataUpdate
+        public event EventHandler OnDataUpdate
         {
             add
             {
@@ -97,7 +97,6 @@ namespace Logitech_LCD.Applets
                 typeof(EventHandler), typeof(BaseWPFApplet));
 
         #endregion
-
         #region LcdColorButtonEventHandlers
 
         //Color LCD button events

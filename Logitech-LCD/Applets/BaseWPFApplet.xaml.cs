@@ -289,43 +289,43 @@ namespace Logitech_LCD.Applets
             }
             else if (LogitechLcd.Instance.IsButtonPressed(Buttons.ColorRight))
             {
-                RaiseEvent(new RoutedEventArgs(LcdColorLeftButtonPressedEvent));
+                RaiseEvent(new RoutedEventArgs(LcdColorRightButtonPressedEvent));
             }
             else if (LogitechLcd.Instance.IsButtonPressed(Buttons.ColorUp))
             {
-                RaiseEvent(new RoutedEventArgs(LcdColorLeftButtonPressedEvent));
+                RaiseEvent(new RoutedEventArgs(LcdColorUpButtonPressedEvent));
             }
             else if (LogitechLcd.Instance.IsButtonPressed(Buttons.ColorDown))
             {
-                RaiseEvent(new RoutedEventArgs(LcdColorLeftButtonPressedEvent));
+                RaiseEvent(new RoutedEventArgs(LcdColorDownButtonPressedEvent));
             }
             else if (LogitechLcd.Instance.IsButtonPressed(Buttons.ColorOk))
             {
-                RaiseEvent(new RoutedEventArgs(LcdColorLeftButtonPressedEvent));
+                RaiseEvent(new RoutedEventArgs(LcdColorOkButtonPressedEvent));
             }
             else if (LogitechLcd.Instance.IsButtonPressed(Buttons.ColorCancel))
             {
-                RaiseEvent(new RoutedEventArgs(LcdColorLeftButtonPressedEvent));
+                RaiseEvent(new RoutedEventArgs(LcdColorCancelButtonPressedEvent));
             }
             else if (LogitechLcd.Instance.IsButtonPressed(Buttons.ColorMenu))
             {
-                RaiseEvent(new RoutedEventArgs(LcdColorLeftButtonPressedEvent));
+                RaiseEvent(new RoutedEventArgs(LcdColorMenuButtonPressedEvent));
             }
             else if (LogitechLcd.Instance.IsButtonPressed(Buttons.MonoButton0))
             {
-                RaiseEvent(new RoutedEventArgs(LcdColorLeftButtonPressedEvent));
+                RaiseEvent(new RoutedEventArgs(LcdMonoButton0PressedEvent));
             }
             else if (LogitechLcd.Instance.IsButtonPressed(Buttons.MonoButton1))
             {
-                RaiseEvent(new RoutedEventArgs(LcdColorLeftButtonPressedEvent));
+                RaiseEvent(new RoutedEventArgs(LcdMonoButton1PressedEvent));
             }
             else if (LogitechLcd.Instance.IsButtonPressed(Buttons.MonoButton2))
             {
-                RaiseEvent(new RoutedEventArgs(LcdColorLeftButtonPressedEvent));
+                RaiseEvent(new RoutedEventArgs(LcdMonoButton2PressedEvent));
             }
             else if (LogitechLcd.Instance.IsButtonPressed(Buttons.MonoButton3))
             {
-                RaiseEvent(new RoutedEventArgs(LcdColorLeftButtonPressedEvent));
+                RaiseEvent(new RoutedEventArgs(LcdMonoButton3PressedEvent));
             }
         }
 

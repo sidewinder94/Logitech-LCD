@@ -7,7 +7,7 @@ A C# Wrapper allowing one to use the functions of the logitech SDK in .NET
 1. Clone the project in any location
 2. Add the project to your solution
 3. Add a reference from your project to this one
-4. Add in your project a Lib folder containing an x86 and an x64 folder, each of these must contain the LogitechLcd.dll file
+4. Add in your project a Lib folder containing an x86 and an x64 folder, each of these must contain the LogitechLcd.dll (the wrapper dll in the logitech LCD SDK, you may have to rename it as the name might have changed) file
 5. You're ready to go and use this wrapper
 6. All of the SDK's base methods are exposed in the LogitechLcd class
 

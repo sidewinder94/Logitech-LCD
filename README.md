@@ -47,6 +47,6 @@ This control will have to look like this :
 If you have some code to run before any visual update, there is an event called `OnDataUpdate` who will be called before any visual update.
 
 #Known Issues
-
+##WinForms
 If you are in Release build configuration or the first build of the lib wasn't done yet, the designer won't be able to initialize.
 When disiging the your control, be sure to be in Debug build configuration, run a build of the lib, close the designer window and reopen it.

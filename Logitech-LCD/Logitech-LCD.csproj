@@ -33,7 +33,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Logitech-LCD_Temp_Key.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Logitech-LCD.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -100,13 +100,13 @@
     <Compile Include="Utils\StaticMethods.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Logitech-LCD_Temp_Key.pfx" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="Applets\BaseWPFApplet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Logitech-LCD.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

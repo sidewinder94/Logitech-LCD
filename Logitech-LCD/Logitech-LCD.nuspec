@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
     <metadata>
-        <id>NuGet.$id$</id>
+        <id>NuGet.Logitech_LCD</id>
         <version>$version$</version>
         <title>Logitech-LCD</title>
         <authors>Antoine-Ali Zarrouk</authors>

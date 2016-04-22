@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <title>Logitech-LCD</title>
+        <authors>Antoine-Ali Zarrouk</authors>
+        <owners>Antoine-Ali Zarrouk</owners>
+        <description>
+A C#.NET Wrapper for the LCD logitech SDK.
+
+It is developped an tested against the latest version of the SDK.
+
+If you have any suggestions or issues here is the github repository : https://github.com/sidewinder94/Logitech-LCD
+        </description>
+        <licenseUrl>https://raw.githubusercontent.com/sidewinder94/Logitech-LCD/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/sidewinder94/Logitech-LCD</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <releaseNotes>Automated Build</releaseNotes>
+        <copyright>Copyright 2016</copyright>
+        <tags>Logitech LCD G19 G15</tags>
+    </metadata>
+</package>

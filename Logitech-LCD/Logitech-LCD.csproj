@@ -106,6 +106,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Logitech-LCD.nuspec" />
     <None Include="Logitech-LCD.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

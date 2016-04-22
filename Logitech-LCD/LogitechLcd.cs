@@ -1,5 +1,7 @@
 ﻿using Logitech_LCD.Exceptions;
 using System;
+using System.Windows;
+using System.Windows.Forms.PropertyGridInternal;
 
 namespace Logitech_LCD
 {

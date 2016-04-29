@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/x4ut9kqy8vr3khuy/branch/master?svg=true)](https://ci.appveyor.com/project/sidewinder94/logitech-lcd/branch/master)
+
 #Logitech-LCD
 
 A C# Wrapper allowing one to use the functions of the logitech SDK in .NET

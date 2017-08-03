@@ -1,27 +1,34 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/x4ut9kqy8vr3khuy/branch/master?svg=true)](https://ci.appveyor.com/project/sidewinder94/logitech-lcd/branch/master)
 
-#Logitech-LCD
+[![NuGet](https://img.shields.io/nuget/dt/NuGet.Logitech_LCD.svg)](https://www.nuget.org/packages/NuGet.Logitech_LCD/)
+
+# Logitech-LCD
 
 A C# Wrapper allowing one to use the functions of the logitech SDK in .NET
 
-#Usage
+# Usage
 
 1. Clone the project in any location
 2. Add the project to your solution
 3. Add a reference from your project to this one
+
+Alternatively you can replace these 3 first steps by using the NuGet package :
+
+`Install-Package NuGet.Logitech_LCD`
+
 4. Add in your project a Lib folder containing an x86 and an x64 folder, each of these must contain the LogitechLcd.dll (the wrapper dll in the logitech LCD SDK, you may have to rename it as the name might have changed) file
 5. You're ready to go and use this wrapper
 6. All of the SDK's base methods are exposed in the LogitechLcd class
 
-##Applets
+## Applets
 
-###Applet WinForm :
+### WinForm :
   
 To make an applet using more than plain text and a background image, one can create a userControl and make it inherit from the Logitech_LCD.Applets.BaseApplet class.
 
 You will then have to override the OnDataUpdate method and you're ready to design your control like you would do for any other Winform Control.
 
-###Applet WPF :
+### WPF :
 
 To use the WPF applet, you'll have to create a new WPF window/usercontrol
 
@@ -48,7 +55,7 @@ This control will have to look like this :
 ```
 If you have some code to run before any visual update, there is an event called `OnDataUpdate` who will be called before any visual update.
 
-#Known Issues
-##WinForms
+# Known Issues
+## WinForms
 If you are in Release build configuration or the first build of the lib wasn't done yet, the designer won't be able to initialize.
 When disiging the your control, be sure to be in Debug build configuration, run a build of the lib, close the designer window and reopen it.

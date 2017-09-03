@@ -238,7 +238,7 @@ namespace Logitech_LCD.Applets
         #endregion
 
         /// <inheritdoc cref="IActivableApplet.IsActive"/>
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         public BaseWPFApplet()
             : this(StaticMethods.DetectLcdType())
@@ -248,6 +248,8 @@ namespace Logitech_LCD.Applets
 
         public BaseWPFApplet(LcdType? lcdType)
         {
+            this.IsActive = true;
+
             if (lcdType != null)
             {
                 _lcdType = lcdType;

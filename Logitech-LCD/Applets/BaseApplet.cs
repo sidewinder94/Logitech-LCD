@@ -36,7 +36,7 @@ namespace Logitech_LCD.Applets
         private Timer _buttonCheckTimer;
 
         /// <inheritdoc cref="IActivableApplet.IsActive"/>
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
 
         public BaseApplet()
@@ -47,6 +47,8 @@ namespace Logitech_LCD.Applets
 
         public BaseApplet(LcdType? lcdType)
         {
+            this.IsActive = true;
+
             if (lcdType != null)
             {
                 _lcdType = lcdType;

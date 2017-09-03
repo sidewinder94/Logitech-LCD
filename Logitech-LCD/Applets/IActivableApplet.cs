@@ -14,6 +14,7 @@ namespace Logitech_LCD.Applets
         /// <summary>
         /// Gets or sets a value indicating if an applet should listen to button presses/send visual updates or not.
         /// </summary>
+        /// <remarks>Defaults to <code>true</code></remarks>
         bool IsActive { get; set; }
     }
 }

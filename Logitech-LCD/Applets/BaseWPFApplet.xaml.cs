@@ -19,7 +19,7 @@ namespace Logitech_LCD.Applets
     /// <summary>
     /// Logique d'interaction pour BaseWPFApplet.xaml
     /// </summary>
-    public partial class BaseWPFApplet
+    public partial class BaseWPFApplet : IActivableApplet
     {
         private readonly int _height;
         private readonly int _width;
@@ -237,6 +237,8 @@ namespace Logitech_LCD.Applets
 
         #endregion
 
+        /// <inheritdoc cref="IActivableApplet.IsActive"/>
+        public bool IsActive { get; set; } = true;
 
         public BaseWPFApplet()
             : this(StaticMethods.DetectLcdType())
@@ -283,6 +285,8 @@ namespace Logitech_LCD.Applets
 
         private void CheckButtons(object sender, EventArgs e)
         {
+            if (!this.IsActive) return;
+
             if (LogitechLcd.Instance.IsButtonPressed(Buttons.ColorLeft))
             {
                 RaiseEvent(new RoutedEventArgs(LcdColorLeftButtonPressedEvent));
@@ -361,6 +365,8 @@ namespace Logitech_LCD.Applets
 
         private void UpdateGraphics()
         {
+            if (!this.IsActive) return;
+
             RaiseEvent(new RoutedEventArgs(DataUpdateEvent));
 
             var bm = DrawToBitmap(new Rectangle(0, 0, _width, _height));

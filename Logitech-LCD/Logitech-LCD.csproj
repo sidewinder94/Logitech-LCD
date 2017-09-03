@@ -94,6 +94,7 @@
     <Compile Include="Applets\BaseWPFApplet.xaml.cs">
       <DependentUpon>BaseWPFApplet.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Applets\IActivableApplet.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="LogitechLcd.cs" />
     <Compile Include="NativeMethods.cs" />

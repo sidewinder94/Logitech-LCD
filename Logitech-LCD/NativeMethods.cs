@@ -73,7 +73,7 @@ namespace Logitech_LCD
         /// 
         /// </summary>
         /// <remarks>Class-type because the marshaller chokes on big structs<br/>
-        /// Author : zzattack from project : <see cref="https://github.com/zzattack/Logitech-LCD"/></remarks>
+        /// Author : zzattack from project : <see href="https://github.com/zzattack/Logitech-LCD"/></remarks>
         [StructLayout(LayoutKind.Sequential, Pack = 8)]
         public class Bitmap
         {

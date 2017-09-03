@@ -8,7 +8,7 @@ using Logitech_LCD.Utils;
 
 namespace Logitech_LCD.Applets
 {
-    public class BaseApplet : UserControl
+    public class BaseApplet : UserControl, IActivableApplet
     {
         private readonly int _height;
         private readonly int _width;
@@ -35,6 +35,8 @@ namespace Logitech_LCD.Applets
         private Timer _updatetTimer;
         private Timer _buttonCheckTimer;
 
+        /// <inheritdoc cref="IActivableApplet.IsActive"/>
+        public bool IsActive { get; set; } = true;
 
 
         public BaseApplet()
@@ -77,6 +79,8 @@ namespace Logitech_LCD.Applets
 
         private void CheckButtons(object sender, EventArgs e)
         {
+            if (!this.IsActive) return;
+
             if (LogitechLcd.Instance.IsButtonPressed(Buttons.ColorLeft))
             {
                 if (LcdColorLeftButtonPressed != null)
@@ -158,6 +162,8 @@ namespace Logitech_LCD.Applets
 
         private void UpdateGraphics(object sender, EventArgs e)
         {
+            if (!this.IsActive) return;
+
             this.DataUpdate(this, EventArgs.Empty);
             PixelFormat format = PixelFormat.Format32bppArgb;
 

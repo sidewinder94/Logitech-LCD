@@ -19,15 +19,15 @@ namespace Logitech_LCD.Applets
     /// <summary>
     /// Logique d'interaction pour BaseWPFApplet.xaml
     /// </summary>
-    public partial class BaseWPFApplet : IActivableApplet
+    public partial class BaseWPFApplet : IActivableApplet, IDisposable
     {
         private readonly int _height;
         private readonly int _width;
         private readonly LcdType? _lcdType;
 
         //Timers
-        private Timer _updatetTimer;
-        private Timer _buttonCheckTimer;
+        private System.Timers.Timer _updatetTimer;
+        private System.Timers.Timer _buttonCheckTimer;
 
 
 
@@ -254,14 +254,22 @@ namespace Logitech_LCD.Applets
             {
                 _lcdType = lcdType;
 
-                _updatetTimer = new Timer { Interval = 100 / 6 };
-                _updatetTimer.Tick += delegate
+                _updatetTimer = new System.Timers.Timer
+                {
+                    Interval = 100 / 6,
+                    AutoReset = true
+                };
+                _updatetTimer.Elapsed += delegate
                 {
                     Dispatcher.Invoke(UpdateGraphics);
                 };
 
-                _buttonCheckTimer = new Timer { Interval = 200 };
-                _buttonCheckTimer.Tick += CheckButtons;
+                _buttonCheckTimer = new System.Timers.Timer
+                {
+                    Interval = 200,
+                    AutoReset = true
+                };
+                _buttonCheckTimer.Elapsed += CheckButtons;
 
                 if (lcdType == LcdType.Color)
                 {
@@ -284,6 +292,39 @@ namespace Logitech_LCD.Applets
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Finalizer for the type <see cref="BaseWPFApplet"/>
+        /// </summary>
+        ~BaseWPFApplet()
+        {
+            this.Dispose(false);
+        }
+
+        /// <inheritdoc cref="IDisposable.Dispose"/>
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
+        /// <inheritdoc cref="IDisposable.Dispose"/>
+        protected virtual void Dispose(bool disposing)
+        {
+            try
+            {
+                this._buttonCheckTimer.Stop();
+                this._updatetTimer.Stop();
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+
+            if (disposing)
+            {
+                this._buttonCheckTimer.Dispose();
+                this._updatetTimer.Dispose();
+            }
+        }
 
         private void CheckButtons(object sender, EventArgs e)
         {

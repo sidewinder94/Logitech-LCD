@@ -32,8 +32,8 @@ namespace Logitech_LCD.Applets
         public event EventHandler LcdMonoButton3Pressed;
 
         //Timers
-        private Timer _updatetTimer;
-        private Timer _buttonCheckTimer;
+        private System.Timers.Timer _updatetTimer;
+        private System.Timers.Timer _buttonCheckTimer;
 
         /// <inheritdoc cref="IActivableApplet.IsActive"/>
         public bool IsActive { get; set; }
@@ -53,11 +53,19 @@ namespace Logitech_LCD.Applets
             {
                 _lcdType = lcdType;
 
-                _updatetTimer = new Timer { Interval = 100 / 6 };
-                _updatetTimer.Tick += UpdateGraphics;
+                _updatetTimer = new System.Timers.Timer
+                {
+                    Interval = 100 / 6,
+                    AutoReset = true
+                };
+                _updatetTimer.Elapsed += UpdateGraphics;
 
-                _buttonCheckTimer = new Timer { Interval = 200 };
-                _buttonCheckTimer.Tick += CheckButtons;
+                _buttonCheckTimer = new System.Timers.Timer
+                {
+                    Interval = 200,
+                    AutoReset = true
+                };
+                _buttonCheckTimer.Elapsed += CheckButtons;
 
                 if (lcdType == LcdType.Color)
                 {
@@ -76,6 +84,36 @@ namespace Logitech_LCD.Applets
                 DataUpdate += OnDataUpdate;
                 _updatetTimer.Start();
                 _buttonCheckTimer.Start();
+            }
+        }
+
+        /// <summary>
+        /// Finalizer for the type <see cref="BaseApplet"/>
+        /// </summary>
+        ~BaseApplet()
+        {
+            this.Dispose(false);
+        }
+
+        /// <inheritdoc cref="IDisposable.Dispose"/>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            try
+            {
+                this._buttonCheckTimer.Stop();
+                this._updatetTimer.Stop();
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+
+            if (disposing)
+            {
+                this._buttonCheckTimer.Dispose();
+                this._updatetTimer.Dispose();
             }
         }
 

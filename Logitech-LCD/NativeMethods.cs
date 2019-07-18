@@ -89,7 +89,7 @@ namespace Logitech_LCD
         /// <param name="dllToLoad"></param>
         /// <returns></returns>
         [DllImport("kernel32.dll")]
-        internal static extern IntPtr LoadLibrary(string dllToLoad);
+        internal static extern void SetDllDirectoryA(string dllToLoad);
 
 
         #region Mapping methods

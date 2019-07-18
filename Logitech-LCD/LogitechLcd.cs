@@ -25,9 +25,11 @@ namespace Logitech_LCD
             "LogitechLcdEnginesWrapper.dll"
         };
 
-        private static readonly string LocalName = Path.Combine(
+        private static readonly string LocalDirectory = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
-            "Logitech-LCD", "LogitechLcd.dll");
+            "Logitech-LCD");
+
+        private static readonly string LocalName = Path.Combine(LocalDirectory, "LogitechLcd.dll");
 
         #region Singleton implementation
         public static LogitechLcd Instance
@@ -51,39 +53,44 @@ namespace Logitech_LCD
             var local = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
                 "Logitech-LCD");
 
-            if (Directory.Exists(local))
+            try
             {
-                if (File.Exists(Path.Combine(local, "LogitechLcd.dll")))
+                if (Directory.Exists(local))
                 {
-                    return true;
+                    if (File.Exists(LocalName))
+                    {
+                        return true;
+                    }
+
+                    return false;
                 }
 
-                return false;
+                Directory.CreateDirectory(local);
             }
-
-            Directory.CreateDirectory(local);
+            catch
+            {
+                // ignored
+            }
 
             return false;
         }
 
         private static void CopyToProgramDataAndLoad(string sourceDll)
         {
-            var local = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
-                "Logitech-LCD");
             try
             {
-                if (!Directory.Exists(local))
+                if (!Directory.Exists(LocalDirectory))
                 {
-                    Directory.CreateDirectory(local);
+                    Directory.CreateDirectory(LocalDirectory);
                 }
 
                 File.Copy(sourceDll, LocalName);
 
-                NativeMethods.LoadLibrary(LocalName);
+                NativeMethods.SetDllDirectoryA(LocalDirectory);
             }
             catch
             {
-                NativeMethods.LoadLibrary(sourceDll);
+                NativeMethods.SetDllDirectoryA(Path.GetDirectoryName(sourceDll));
             }
         }
 
@@ -91,7 +98,7 @@ namespace Logitech_LCD
         {
             if (IsProgramDataPresent())
             {
-                NativeMethods.LoadLibrary(LocalName);
+                NativeMethods.SetDllDirectoryA(LocalDirectory);
                 return;
             }
 

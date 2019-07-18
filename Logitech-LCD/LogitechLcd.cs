@@ -1,5 +1,8 @@
 ﻿using Logitech_LCD.Exceptions;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Forms.PropertyGridInternal;
 
@@ -10,6 +13,22 @@ namespace Logitech_LCD
     /// </summary>
     public class LogitechLcd
     {
+        public static List<string> SearchPaths = new List<string>()
+        {
+            $"C:\\Program Files\\Logitech Gaming Software\\SDK\\LCD\\{(Environment.Is64BitOperatingSystem && Environment.Is64BitProcess ? "x64" : "x86")}",
+            $"C:\\Program Files (x86)\\Logitech Gaming Software\\SDK\\LCD\\{(Environment.Is64BitOperatingSystem && Environment.Is64BitProcess ? "x64" : "x86")}",
+        };
+
+        public static HashSet<string> DllPossibleNames = new HashSet<string>()
+        {
+            "LogitechLcd.dll",
+            "LogitechLcdEnginesWrapper.dll"
+        };
+
+        private static readonly string LocalName = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+            "Logitech-LCD", "LogitechLcd.dll");
+
         #region Singleton implementation
         public static LogitechLcd Instance
         {
@@ -26,8 +45,79 @@ namespace Logitech_LCD
         #endregion
 
         #region constructor / destructor
+
+        private static bool IsProgramDataPresent()
+        {
+            var local = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                "Logitech-LCD");
+
+            if (Directory.Exists(local))
+            {
+                if (File.Exists(Path.Combine(local, "LogitechLcd.dll")))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            Directory.CreateDirectory(local);
+
+            return false;
+        }
+
+        private static void CopyToProgramDataAndLoad(string sourceDll)
+        {
+            var local = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                "Logitech-LCD");
+            try
+            {
+                if (!Directory.Exists(local))
+                {
+                    Directory.CreateDirectory(local);
+                }
+
+                File.Copy(sourceDll, LocalName);
+
+                NativeMethods.LoadLibrary(LocalName);
+            }
+            catch
+            {
+                NativeMethods.LoadLibrary(sourceDll);
+            }
+        }
+
         private LogitechLcd()
-        { }
+        {
+            if (IsProgramDataPresent())
+            {
+                NativeMethods.LoadLibrary(LocalName);
+                return;
+            }
+
+            var localDlls = Directory.GetFiles(".", "*.dll", SearchOption.AllDirectories);
+
+            var local = localDlls.FirstOrDefault(ldl => DllPossibleNames.Contains(Path.GetFileName(ldl)));
+
+            if (local != null)
+            {
+                CopyToProgramDataAndLoad(local);
+                return;
+            }
+
+            foreach (var posiblePath in SearchPaths.Where(Directory.Exists))
+            {
+                var pathDlls = Directory.GetFiles(posiblePath, "*.dll", SearchOption.TopDirectoryOnly);
+
+                var path = pathDlls.FirstOrDefault(ldl => DllPossibleNames.Contains(Path.GetFileName(ldl)));
+
+                if (path != null)
+                {
+                    CopyToProgramDataAndLoad(path);
+                    return;
+                }
+            }
+        }
 
         ~LogitechLcd()
         {

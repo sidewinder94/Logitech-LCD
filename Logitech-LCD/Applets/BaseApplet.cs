@@ -32,11 +32,20 @@ namespace Logitech_LCD.Applets
         public event EventHandler LcdMonoButton3Pressed;
 
         //Timers
-        private System.Timers.Timer _updatetTimer;
+        private System.Timers.Timer _updateTimer;
         private System.Timers.Timer _buttonCheckTimer;
 
         /// <inheritdoc cref="IActivableApplet.IsActive"/>
         public bool IsActive { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the graphics update rate same unit as <see cref="Timer.Interval"/>
+        /// </summary>
+        public double UpdateRate
+        {
+            get { return this._updateTimer.Interval; }
+            set { this._updateTimer.Interval = value; }
+        }
 
 
         public BaseApplet()
@@ -53,12 +62,12 @@ namespace Logitech_LCD.Applets
             {
                 _lcdType = lcdType;
 
-                _updatetTimer = new System.Timers.Timer
+                this._updateTimer = new System.Timers.Timer
                 {
                     Interval = 100 / 6,
                     AutoReset = true
                 };
-                _updatetTimer.Elapsed += UpdateGraphics;
+                this._updateTimer.Elapsed += UpdateGraphics;
 
                 _buttonCheckTimer = new System.Timers.Timer
                 {
@@ -82,7 +91,7 @@ namespace Logitech_LCD.Applets
                     throw new ArgumentException("Bad LCD Type", "lcdType");
                 }
                 DataUpdate += OnDataUpdate;
-                _updatetTimer.Start();
+                this._updateTimer.Start();
                 _buttonCheckTimer.Start();
             }
         }
@@ -103,7 +112,7 @@ namespace Logitech_LCD.Applets
             try
             {
                 this._buttonCheckTimer.Stop();
-                this._updatetTimer.Stop();
+                this._updateTimer.Stop();
             }
             catch (Exception)
             {
@@ -113,7 +122,7 @@ namespace Logitech_LCD.Applets
             if (disposing)
             {
                 this._buttonCheckTimer.Dispose();
-                this._updatetTimer.Dispose();
+                this._updateTimer.Dispose();
             }
         }
 

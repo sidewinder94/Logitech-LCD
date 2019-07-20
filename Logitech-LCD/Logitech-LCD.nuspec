@@ -13,7 +13,7 @@
 
             If you have any suggestions or issues here is the github repository : https://github.com/sidewinder94/Logitech-LCD
         </description>
-        <licenseUrl>https://raw.githubusercontent.com/sidewinder94/Logitech-LCD/master/LICENSE</licenseUrl>
+        <license>https://raw.githubusercontent.com/sidewinder94/Logitech-LCD/master/LICENSE</license>
         <projectUrl>https://github.com/sidewinder94/Logitech-LCD</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <releaseNotes>Automated Build</releaseNotes>

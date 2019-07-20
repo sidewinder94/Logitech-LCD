@@ -34,6 +34,7 @@ namespace Logitech_LCD.Applets
         //Timers
         private System.Timers.Timer _updateTimer;
         private System.Timers.Timer _buttonCheckTimer;
+        private double _updateRate = 100 / 6;
 
         /// <inheritdoc cref="IActivableApplet.IsActive"/>
         public bool IsActive { get; set; }
@@ -43,8 +44,26 @@ namespace Logitech_LCD.Applets
         /// </summary>
         public double UpdateRate
         {
-            get { return this._updateTimer.Interval; }
-            set { this._updateTimer.Interval = value; }
+            get
+            {
+                if (this._updateTimer == null)
+                {
+                    return this._updateRate;
+                }
+
+                return this._updateTimer.Interval;
+
+            }
+            set
+            {
+                if (this._updateTimer == null)
+                {
+                    this._updateRate = value;
+                    return;
+                }
+
+                this._updateTimer.Interval = value;
+            }
         }
 
 
@@ -64,7 +83,7 @@ namespace Logitech_LCD.Applets
 
                 this._updateTimer = new System.Timers.Timer
                 {
-                    Interval = 100 / 6,
+                    Interval = this._updateRate,
                     AutoReset = true
                 };
                 this._updateTimer.Elapsed += UpdateGraphics;

@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Forms.PropertyGridInternal;
 
 namespace Logitech_LCD
 {

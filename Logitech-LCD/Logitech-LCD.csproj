@@ -1,14 +1,14 @@
 
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net4.5</TargetFrameworks>
+    <TargetFrameworks>net10.0-windows;netcoreapp3.1;net4.5</TargetFrameworks>
     <RootNamespace>Logitech_LCD</RootNamespace>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Authors>Antoine-Ali Zarrouk</Authors>
     <Company>Antoine-Ali Zarrouk</Company>
-    <AssemblyVersion>1.0.6.0</AssemblyVersion>
-    <FileVersion>1.0.6.0</FileVersion>
+    <AssemblyVersion>1.0.7.0</AssemblyVersion>
+    <FileVersion>1.0.7.0</FileVersion>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression></PackageLicenseExpression>
@@ -21,7 +21,8 @@ It is developped an tested against the latest version of the SDK.
 If you have any suggestions or issues here is the github repository : https://github.com/sidewinder94/Logitech-LCD</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageId>NuGet.Logitech_LCD</PackageId>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -41,10 +42,16 @@ If you have any suggestions or issues here is the github repository : https://gi
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
     <PackageReference Include="System.Drawing.Common">
-      <Version>4.7.0</Version>
+      <Version>4.7.2</Version>
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-windows'">
+    <PackageReference Include="System.Drawing.Common">
+      <Version>10.0.11</Version>
+    </PackageReference>
+  </ItemGroup>
+  
   <ItemGroup>
     <None Include="..\LICENSE">
       <Pack>True</Pack>

@@ -1,5 +1,6 @@
 ﻿using Logitech_LCD.Exceptions;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
@@ -37,11 +38,13 @@ namespace Logitech_LCD.Applets
         private double _updateRate = 100 / 6;
 
         /// <inheritdoc cref="IActivableApplet.IsActive"/>
+        [DefaultValue(true)]
         public bool IsActive { get; set; }
 
         /// <summary>
         /// Gets or Sets the graphics update rate same unit as <see cref="Timer.Interval"/>
         /// </summary>
+        [DefaultValue(100.0)]
         public double UpdateRate
         {
             get

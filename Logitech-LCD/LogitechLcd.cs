@@ -9,7 +9,7 @@ namespace Logitech_LCD
     /// <summary>
     /// The class to effectively use to access the SDK functions
     /// </summary>
-    public class LogitechLcd
+    public class LogitechLcd : IDisposable
     {
         public static List<string> SearchPaths = new List<string>()
         {
@@ -30,13 +30,7 @@ namespace Logitech_LCD
         private static readonly string LocalName = Path.Combine(LocalDirectory, "LogitechLcd.dll");
 
         #region Singleton implementation
-        public static LogitechLcd Instance
-        {
-            get
-            {
-                return Nested.instance;
-            }
-        }
+        public static LogitechLcd Instance => Nested.instance;
 
         private class Nested
         {
@@ -124,9 +118,25 @@ namespace Logitech_LCD
             }
         }
 
+        /// <summary>
+        /// Finalizer for the type <see cref="LogitechLcd"/>
+        /// </summary>
         ~LogitechLcd()
         {
-            NativeMethods.Shutdown();
+            this.Dispose(false);
+        }
+
+        /// <inheritdoc cref="IDisposable.Dispose"/>
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <inheritdoc cref="IDisposable.Dispose"/>
+        protected virtual void Dispose(bool disposing)
+        {
+            this.Shutdown();
         }
         #endregion
 
@@ -139,7 +149,7 @@ namespace Logitech_LCD
         /// <returns>The function returns, needs to be casted</returns>
         private object InvokeMethod(Delegate method, params object[] args)
         {
-            if (IsInit)
+            if (this.IsInit)
             {
                 return method.DynamicInvoke(args);
             }
@@ -159,8 +169,8 @@ namespace Logitech_LCD
         /// <returns>True if success, False if failed</returns>
         public bool Init(String friendlyName, LcdType lcdType)
         {
-            IsInit = NativeMethods.Init(friendlyName, lcdType);
-            return IsInit;
+            this.IsInit = NativeMethods.Init(friendlyName, lcdType);
+            return this.IsInit;
         }
 
         /// <summary>
@@ -174,7 +184,7 @@ namespace Logitech_LCD
         {
             try
             {
-                return (bool)InvokeMethod(new Func<LcdType, bool>(NativeMethods.IsConnected), lcdType);
+                return (bool)this.InvokeMethod(new Func<LcdType, bool>(NativeMethods.IsConnected), lcdType);
             }
             catch
             {
@@ -190,7 +200,7 @@ namespace Logitech_LCD
         /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public bool IsButtonPressed(Buttons button)
         {
-            return (bool)InvokeMethod(new Func<Buttons, bool>(NativeMethods.IsButtonPressed), button);
+            return (bool)this.InvokeMethod(new Func<Buttons, bool>(NativeMethods.IsButtonPressed), button);
         }
 
         /// <summary>
@@ -199,7 +209,7 @@ namespace Logitech_LCD
         /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public void Update()
         {
-            InvokeMethod(new Action(NativeMethods.Update));
+            this.InvokeMethod(new Action(NativeMethods.Update));
         }
 
         /// <summary>
@@ -210,7 +220,7 @@ namespace Logitech_LCD
         /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public bool MonoSetBackground(byte[] monoBitmap)
         {
-            return (bool)InvokeMethod(new Func<byte[], bool>(NativeMethods.MonoSetBackground), monoBitmap);
+            return (bool)this.InvokeMethod(new Func<byte[], bool>(NativeMethods.MonoSetBackground), monoBitmap);
         }
 
         /// <summary>
@@ -227,7 +237,7 @@ namespace Logitech_LCD
                 throw new ArgumentOutOfRangeException("lineNumber", lineNumber,
                     "Should be between 0 and 3 included");
             }
-            return (bool)InvokeMethod(new Func<int, String, bool>(NativeMethods.MonoSetText), lineNumber, text);
+            return (bool)this.InvokeMethod(new Func<int, String, bool>(NativeMethods.MonoSetText), lineNumber, text);
         }
 
         /// <summary>
@@ -238,7 +248,7 @@ namespace Logitech_LCD
         /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public bool ColorSetBackground(byte[] colorBitmap)
         {
-            return (bool)InvokeMethod(new Func<byte[], bool>(NativeMethods.ColorSetBackground), colorBitmap);
+            return (bool)this.InvokeMethod(new Func<byte[], bool>(NativeMethods.ColorSetBackground), colorBitmap);
         }
 
         /// <summary>
@@ -252,7 +262,7 @@ namespace Logitech_LCD
         /// <exception cref="LcdNotInitializedException">If the LCD Screen has not been initialized</exception>
         public bool ColorSetTitle(String text, int red, int green, int blue)
         {
-            return (bool)InvokeMethod(new Func<String, int, int, int, bool>(NativeMethods.ColorSetTitle),
+            return (bool)this.InvokeMethod(new Func<String, int, int, int, bool>(NativeMethods.ColorSetTitle),
                 text, red, green, blue);
         }
 
@@ -273,8 +283,15 @@ namespace Logitech_LCD
                 throw new ArgumentOutOfRangeException("lineNumber", lineNumber,
                     "Should be between 0 and 7 included");
             }
-            return (bool)InvokeMethod(new Func<int, String, int, int, int, bool>(NativeMethods.ColorSetText),
+            return (bool)this.InvokeMethod(new Func<int, String, int, int, int, bool>(NativeMethods.ColorSetText),
                 lineNumber, text, red, green, blue);
+        }
+
+        /// <inheritdoc cref="NativeMethods.Shutdown"/>
+        public void Shutdown()
+        {
+            NativeMethods.Shutdown();
+            this.IsInit = false;
         }
     }
 }
